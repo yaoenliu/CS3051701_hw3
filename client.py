@@ -22,13 +22,18 @@ def start_client(host = "127.0.0.1", port = 12345):
         if message == "":
             sys.stdout.write(">> ")
         continue
-    client.close()    
+    client.close()
     return
     
 
 def receive_message(client):
     while True:
-        message = client.recv(1024).decode("utf-8")
+        # to handle the case when the client is disconnected from the server
+        try:
+            message = client.recv(1024).decode("utf-8")
+        except:
+            # disconnected from the server, stop the thread
+            break
         sys.stdout.write("\033[1K\033[1G")
         print(message)
         sys.stdout.write(">> ")
