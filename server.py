@@ -51,7 +51,7 @@ def handle_client(client_socket):
             name = client_socket.recv(1024).decode("utf-8")
         except:
             # 有人在输入名字的時候關掉視窗
-            print (f"A disconnection from {client_socket.getpeername()}")
+            print (f"A disconnection from {client_socket.getpeername()} before entering a name.")
             return
         if len(ClientList) == 5:
             client_socket.send("Unable to connect server: Maximum connections reached.".encode("utf-8"))
