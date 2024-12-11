@@ -71,17 +71,15 @@ def handle_client(client_socket):
     while True:
         try:
             data = client_socket.recv(1024).decode("utf-8")
-            if not data or data == "exit":
-                ClientList.remove(Client(client_socket, name))            
+            if not data or data == "exit":            
                 break
             print (f"{name} sent: {data}")
             broadcast(f"{name}: {data}")
         except:
-            # 有人在聊天的時候關掉視窗
-            ClientList.remove(Client(client_socket, name))
+            # 有人在聊天的時候關掉視窗            
             break
         
-
+    ClientList.remove(Client(client_socket, name))
     broadcast(f"{name} has left the chat.")
     print(f"{name} has left the chat.")
     client_socket.close()
